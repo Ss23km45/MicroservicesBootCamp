@@ -37,4 +37,12 @@ public class EmployeeController {
 
         return employee;
     }
+
+    @GetMapping("/returnEmployee/{empID}")
+    public Employee returnEmployee(@PathVariable String empID){
+        Employee employee = employeeService.returnEmployee(empID);
+
+
+        return employee;
+    }
 }

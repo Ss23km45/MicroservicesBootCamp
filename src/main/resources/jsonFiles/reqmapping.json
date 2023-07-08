@@ -1,5 +1,6 @@
 {
   "addEmployee" : "http://localhost:8081/employees/addEmployee",
   "getAllEmployees" : "http://localhost:8081/employees/allEmployees",
-  "updateEmployee" :  "http://localhost:8081/employees/updateEmployee"
+  "updateEmployee" :  "http://localhost:8081/employees/updateEmployee",
+  "returnEmployee" :  "http://localhost:8081/employees//returnEmployee/{empID}"
 }

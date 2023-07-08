@@ -12,4 +12,6 @@ public interface EmployeeService {
     List<Employee> getEmployeeList();
 
     Employee updateEmployee(UpdateEmp updateEmp);
+
+    Employee returnEmployee(String empID);
 }
