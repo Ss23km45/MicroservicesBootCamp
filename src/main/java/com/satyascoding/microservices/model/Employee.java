@@ -1,6 +1,9 @@
 package com.satyascoding.microservices.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"empSal"})
 public class Employee {
 
     private String empFName;
