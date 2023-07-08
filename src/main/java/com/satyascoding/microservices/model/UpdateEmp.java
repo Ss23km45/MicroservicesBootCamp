@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class UpdateEmp {
-    private String Emao;
+    private String empId;
     private String empEmail;
 }
