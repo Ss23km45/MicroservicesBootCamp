@@ -1,5 +1,7 @@
 package com.satyascoding.microservices.service.impl;
 
+import com.satyascoding.microservices.exception.EmployeeNotFoundException;
+import com.satyascoding.microservices.exception.EmployeeNotFoundToUpdate;
 import com.satyascoding.microservices.model.Employee;
 import com.satyascoding.microservices.model.UpdateEmp;
 import com.satyascoding.microservices.service.EmployeeService;
@@ -32,11 +34,24 @@ public class EmployeeSeriviceImpl implements EmployeeService {
 
     @Override
     public Employee updateEmployee(UpdateEmp updateEmp) {
-        List<Employee> employeeList;
+        //List<Employee> employeeList;
+        Employee employeeList = new Employee();
         employeeList = allEmployees.stream()
                 .filter(emp -> emp.getEmpId().equalsIgnoreCase(updateEmp.getEmpId()))
-                .collect(Collectors.toList());
-        employeeList.get(0).setEmpEmail(updateEmp.getEmpEmail());
-        return employeeList.get(0);
+                .findFirst()
+                .orElseThrow(() -> new EmployeeNotFoundToUpdate("Employee not found in current List to Update :: " + updateEmp.getEmpId()));
+               // .collect(Collectors.toList());
+//        employeeList.get(0).setEmpEmail(updateEmp.getEmpEmail());
+        employeeList.setEmpEmail(updateEmp.getEmpEmail());
+        return employeeList;
+    }
+
+    @Override
+    public Employee returnEmployee(String empID) {
+        return allEmployees.stream()
+                .filter(emp -> emp.getEmpId().equalsIgnoreCase(empID))
+                .findFirst()
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found in current List :: " + empID));
+//                .get();
     }
 }
