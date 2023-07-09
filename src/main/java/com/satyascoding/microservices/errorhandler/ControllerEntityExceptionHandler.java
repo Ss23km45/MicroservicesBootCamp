@@ -3,6 +3,7 @@ package com.satyascoding.microservices.errorhandler;
 import com.satyascoding.microservices.exception.EmployeeNotFound;
 import com.satyascoding.microservices.exception.EmployeeNotFoundException;
 import com.satyascoding.microservices.exception.EmployeeNotFoundToUpdate;
+import com.satyascoding.microservices.exception.UnableToInsertToDbException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +31,14 @@ public class ControllerEntityExceptionHandler extends ResponseEntityExceptionHan
     @ResponseStatus(HttpStatus.ALREADY_REPORTED)
     public EmployeeNotFound returnStatusofEmployeetoUpdate(EmployeeNotFoundToUpdate exception){
         EmployeeNotFound employeeNotFound = new EmployeeNotFound(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return employeeNotFound;
+    }
+
+    @ExceptionHandler(UnableToInsertToDbException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    public EmployeeNotFound throwDBException(UnableToInsertToDbException exception){
+        EmployeeNotFound employeeNotFound = new EmployeeNotFound(exception.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
         return employeeNotFound;
     }
 }

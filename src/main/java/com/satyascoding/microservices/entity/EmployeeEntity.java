@@ -11,9 +11,27 @@ public class EmployeeEntity {
     private String empExp;
     private String empSal;
     private String empDept;
+    private String empEmail;
+    private String empLName;
+    @Id
+    private String empId;
+    private String empFName;
 
     public String getEmpExp() {
         return empExp;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeEntity{" +
+                "empExp='" + empExp + '\'' +
+                ", empSal='" + empSal + '\'' +
+                ", empDept='" + empDept + '\'' +
+                ", empEmail='" + empEmail + '\'' +
+                ", empLName='" + empLName + '\'' +
+                ", empId='" + empId + '\'' +
+                ", empFName='" + empFName + '\'' +
+                '}';
     }
 
     public void setEmpExp(String empExp) {
@@ -68,9 +86,4 @@ public class EmployeeEntity {
         this.empFName = empFName;
     }
 
-    private String empEmail;
-    private String empLName;
-    @Id
-    private String empId;
-    private String empFName;
 }

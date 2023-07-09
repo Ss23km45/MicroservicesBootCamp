@@ -4,12 +4,15 @@ import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.satyascoding.microservices.entity.EmployeeEntity;
 import com.satyascoding.microservices.exception.EmployeeNotFoundException;
 import com.satyascoding.microservices.exception.EmployeeNotFoundToUpdate;
+import com.satyascoding.microservices.exception.UnableToInsertToDbException;
 import com.satyascoding.microservices.model.Employee;
 import com.satyascoding.microservices.model.UpdateEmp;
 import com.satyascoding.microservices.repository.EmployeeEntityRepository;
 import com.satyascoding.microservices.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,16 +29,19 @@ public class EmployeeServiceImplV2 implements EmployeeService {
 
     @Override
     public Employee createEmployee(Employee employee) {
-        if( employee.getEmpId() == null || employee.getEmpId().isEmpty()){
-            employee.setEmpId(UUID.randomUUID().toString());
+        employee.setEmpId(UUID.randomUUID().toString());
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        System.out.println("Employee Created " + employee);
+        BeanUtils.copyProperties(employee, employeeEntity);
+        System.out.println("Employee Created " + employeeEntity);
+        try{
+            employeeEntityRepository.save(employeeEntity);
+        }catch(DataAccessException e){
+            throw new UnableToInsertToDbException("Unable to Insert Values some issue occured." + HttpStatus.UNPROCESSABLE_ENTITY);
         }
 
-        EmployeeEntity employeeEntity = new EmployeeEntity();
-        BeanUtils.copyProperties(employee, employeeEntity);
 
-        employeeEntityRepository.save(employeeEntity);
 
-        System.out.println("Employee Created " + employee);
         return employee;
     }
 

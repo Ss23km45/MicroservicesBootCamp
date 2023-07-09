@@ -1,12 +1,25 @@
 server:
   port: 8081
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:mydb
+#    username: sa
+#    password: password
+#    driverClassName: org.h2.Driver
+#  jpa:
+#    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 spring:
   datasource:
-    url: jdbc:h2:mem:mydb
-    username: sa
-    password: password
-    driverClassName: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/web_student_tracker
+    username: webstudent
+    password: webstudent123
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+    spring.jpa.database-platform: org.hibernate.dialect.MySQLDialect
   h2:
     console.enabled: true
+
