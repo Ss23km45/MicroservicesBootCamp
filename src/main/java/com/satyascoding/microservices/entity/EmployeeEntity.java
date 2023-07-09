@@ -1,40 +1,16 @@
-package com.satyascoding.microservices.model;
+package com.satyascoding.microservices.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-//@JsonIgnoreProperties({"empSal"})
-public class Employee {
-
-    private String empFName;
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "EmpFName='" + empFName + '\'' +
-                ", EmpExp='" + empExp + '\'' +
-                ", EmpSal='" + empSal + '\'' +
-                ", EmpDept='" + empDept + '\'' +
-                ", EmpEmail='" + empEmail + '\'' +
-                ", EmpLName='" + empLName + '\'' +
-                ", EmpId='" + empId + '\'' +
-                '}';
-    }
+@Entity
+@Table(name = "employee_data")
+public class EmployeeEntity {
 
     private String empExp;
     private String empSal;
     private String empDept;
-    private String empEmail;
-    private String empLName;
-    private String empId;
-
-    public String getEmpFName() {
-        return empFName;
-    }
-
-    public void setEmpFName(String empFName) {
-        this.empFName = empFName;
-    }
 
     public String getEmpExp() {
         return empExp;
@@ -83,4 +59,18 @@ public class Employee {
     public void setEmpId(String empId) {
         this.empId = empId;
     }
+
+    public String getEmpFName() {
+        return empFName;
+    }
+
+    public void setEmpFName(String empFName) {
+        this.empFName = empFName;
+    }
+
+    private String empEmail;
+    private String empLName;
+    @Id
+    private String empId;
+    private String empFName;
 }

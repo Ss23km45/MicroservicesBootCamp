@@ -1,7 +1,7 @@
 package com.satyascoding.microservices.controller;
 
-import com.satyascoding.microservices.model.UpdateEmp;
 import com.satyascoding.microservices.model.Employee;
+import com.satyascoding.microservices.model.UpdateEmp;
 import com.satyascoding.microservices.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/employees")
-public class EmployeeController {
-
+@RequestMapping("/v2/employees")
+public class EmployeeControllerV2 {
 
     @Autowired
-    @Qualifier("employeeSeriviceImpl")
+    @Qualifier("employeeServiceImplV2")
     EmployeeService employeeService;
 
     @PostMapping("/addEmployee")

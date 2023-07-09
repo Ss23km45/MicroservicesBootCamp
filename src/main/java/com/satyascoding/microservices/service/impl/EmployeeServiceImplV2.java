@@ -1,0 +1,82 @@
+package com.satyascoding.microservices.service.impl;
+
+import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.satyascoding.microservices.entity.EmployeeEntity;
+import com.satyascoding.microservices.exception.EmployeeNotFoundException;
+import com.satyascoding.microservices.exception.EmployeeNotFoundToUpdate;
+import com.satyascoding.microservices.model.Employee;
+import com.satyascoding.microservices.model.UpdateEmp;
+import com.satyascoding.microservices.repository.EmployeeEntityRepository;
+import com.satyascoding.microservices.service.EmployeeService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+@Service
+public class EmployeeServiceImplV2 implements EmployeeService {
+
+    @Autowired
+    EmployeeEntityRepository employeeEntityRepository;
+
+    @Override
+    public Employee createEmployee(Employee employee) {
+        if( employee.getEmpId() == null || employee.getEmpId().isEmpty()){
+            employee.setEmpId(UUID.randomUUID().toString());
+        }
+
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        BeanUtils.copyProperties(employee, employeeEntity);
+
+        employeeEntityRepository.save(employeeEntity);
+
+        System.out.println("Employee Created " + employee);
+        return employee;
+    }
+
+    @Override
+    public List<Employee> getEmployeeList() {
+        List<Employee> employees = new ArrayList<>();
+        Employee employee = new Employee();
+        List<EmployeeEntity> empList = employeeEntityRepository.findAll();
+
+        employees = empList.stream().map(emp-> { BeanUtils.copyProperties(emp, employee);
+            return employee;
+        }).collect(Collectors.toList());
+        System.out.println(employees);
+
+        return employees;
+
+    }
+
+    @Override
+    public Employee updateEmployee(UpdateEmp updateEmp) {
+
+        Employee emp = new Employee();
+        EmployeeEntity employee = getEmployeeById(updateEmp.getEmpId());
+        employee.setEmpEmail(updateEmp.getEmpEmail());
+        employeeEntityRepository.save(employee);
+        BeanUtils.copyProperties(employee, emp);
+        return emp;
+    }
+
+    @Override
+    public Employee returnEmployee(String empID) {
+        Employee emp = new Employee();
+        EmployeeEntity employee = getEmployeeById(empID);
+        BeanUtils.copyProperties(employee, emp);
+        return emp;
+    }
+
+    private EmployeeEntity getEmployeeById(String empID){
+        Optional<EmployeeEntity> empEntity = employeeEntityRepository.findById(empID);
+        EmployeeEntity employee = empEntity.get();
+
+        return employee;
+    }
+}
