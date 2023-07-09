@@ -2,5 +2,9 @@
   "addEmployee" : "http://localhost:8081/v1/employees/addEmployee",
   "getAllEmployees" : "http://localhost:8081/v1/employees/allEmployees",
   "updateEmployee" :  "http://localhost:8081/v1/employees/updateEmployee",
-  "returnEmployee" :  "http://localhost:8081/v1/employees//returnEmployee/{empID}"
+  "returnEmployee" :  "http://localhost:8081/v1/employees//returnEmployee/{empID}",
+  "addEmployeeV2" : "http://localhost:8081/v2/employees/addEmployee",
+  "getAllEmployeesV2" : "http://localhost:8081/v2/employees/allEmployees",
+  "updateEmployeeV2" :  "http://localhost:8081/v2/employees/updateEmployee",
+  "returnEmployeeV2" :  "http://localhost:8081/v2/employees//returnEmployee/{empID}"
 }
