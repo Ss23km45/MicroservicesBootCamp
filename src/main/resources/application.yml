@@ -8,7 +8,13 @@ server:
 #    driverClassName: org.h2.Driver
 #  jpa:
 #    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+#Banner Mode we can set up 3 types
+# OFF, LOG, CONSOLE
 spring:
+  banner:
+    location: banner2.txt
+  main:
+    banner-mode: CONSOLE
   datasource:
     url: jdbc:mysql://localhost:3306/web_student_tracker
     username: webstudent
@@ -22,4 +28,5 @@ spring:
     spring.jpa.database-platform: org.hibernate.dialect.MySQLDialect
   h2:
     console.enabled: true
+# Changing the Banner in Spring application
 
